@@ -1,6 +1,6 @@
 export default {
   BLUE_DARKNESS: '#003261',
-  LIGHT_BLUE: '#61dafb',
+  LIGHT_BLUE: '#00c9ff',
   GRAY_BLUE: '#282c34',
   BACKGROUND_GRAY: '#F7F7F8',
   BEIGE_BORDER: '#F1E7D1',

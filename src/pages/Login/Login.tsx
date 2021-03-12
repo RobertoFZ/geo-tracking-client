@@ -14,7 +14,7 @@ import routes from 'shared/constants/routes';
 import withUser, { WithUserProps } from 'hooks/withUser';
 import { User } from 'api/User/declarations';
 
-const { BOX_SHADOW } = COLORS;
+const { WHITE } = COLORS;
 
 const IMAGE_SPACING = 40;
 
@@ -44,7 +44,7 @@ const LoginPage: React.FC<RouteComponentProps & WithUserProps> = ({ history, set
   return (
     <>
       <StaticImage src={Element} bottom={IMAGE_SPACING} left={IMAGE_SPACING} maxWidthSM={200} />
-      <GradiantBackground firstColor={BOX_SHADOW} secondColor={BOX_SHADOW}>
+      <GradiantBackground firstColor={WHITE} secondColor={WHITE}>
         <CenterVerticallyContainer>
           <LoginForm onSubmit={handleSubmit} loading={loading} />
         </CenterVerticallyContainer>

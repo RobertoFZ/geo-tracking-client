@@ -7,7 +7,7 @@ export const NavbarLogo = styled.img.attrs({
 })`
   filter: brightness(0) invert(1);
   float: left;
-  width: 120px;
+  height: 40px;
 
   @media ${Devices.laptop} { 
     

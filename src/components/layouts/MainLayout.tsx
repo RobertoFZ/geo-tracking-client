@@ -42,19 +42,12 @@ const MainLayout: React.FC<Props> = ({
   return (
     <>
       <AppHeader user={user} onLogout={doLogout} active={active} />
+      {false && <LateralMenu active={active} />}
       <Layout>
-        {false && <LateralMenu active={active} />}
-        <Layout style={{ padding: '0 24px 24px' }}>
-          <Breadcrumb style={{ margin: '16px 0' }}>
-            <Breadcrumb.Item>Home</Breadcrumb.Item>
-            <Breadcrumb.Item>List</Breadcrumb.Item>
-            <Breadcrumb.Item>App</Breadcrumb.Item>
-          </Breadcrumb>
-          <AppContent>
-            {children}
-          </AppContent>
-          <Footer style={{ textAlign: 'center' }}>Franzet ©{new Date().getFullYear()} Created by Ant UED</Footer>
-        </Layout>
+        <AppContent>
+          {children}
+        </AppContent>
+        <Footer style={{ textAlign: 'center' }}>Franzet ©{new Date().getFullYear()} Created by Ant UED</Footer>
       </Layout>
     </>
   )

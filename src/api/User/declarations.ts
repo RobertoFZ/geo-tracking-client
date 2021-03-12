@@ -31,3 +31,12 @@ export interface UserProfile extends Model {
   user: User;
   profile: Profile;
 }
+
+export interface UserActivity extends Model {
+  first_name: string;
+  last_name: string;
+  email: string;
+  is_active: boolean;
+  profile: Profile;
+  activity: number;
+}

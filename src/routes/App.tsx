@@ -2,6 +2,8 @@ import { BrowserRouter as Router, Redirect, Route } from "react-router-dom";
 import { GlobalStyle } from 'components/layouts/GlobalStyle';
 import Login from 'pages/Login';
 import 'antd/dist/antd.css';
+import "slick-carousel/slick/slick.css"; 
+import "slick-carousel/slick/slick-theme.css";
 import PrivateRoute from "components/molecules/PrivateRoute";
 import { WithUserProps } from "hooks/withUser";
 import routes from "shared/constants/routes";
