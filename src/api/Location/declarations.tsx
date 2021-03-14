@@ -13,6 +13,7 @@ export interface Location extends Model {
 export interface LastLocation extends Model {
   user: User;
   location: Location;
+  location_zone: LocationZone;
 }
 
 export interface LocationActivity extends Model {

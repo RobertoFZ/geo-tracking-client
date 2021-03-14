@@ -11,6 +11,7 @@ const ZoneActivityCard = ({
   activity
 }: IZoneActivityCard) => (
   <Card
+    style={{ margin: '0 10px' }}
     title={activity.location_zone.name}
     size="small">
     <UserActivityList users={activity.users} />
