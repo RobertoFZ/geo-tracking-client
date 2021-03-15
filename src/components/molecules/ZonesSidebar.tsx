@@ -29,6 +29,7 @@ const ZonesSidebar = ({
         loading={loading}
         itemLayout="horizontal"
         dataSource={locationActivity}
+        locale={{emptyText: 'No se tienen zonas'}}
         renderItem={(item: LocationActivity) => {
           const setSelectedZone = () => onSelectedZone(item);
           return (

@@ -26,7 +26,7 @@ const LocationsMap: any = compose(
     {
       locations.map((lastLocation: LastLocation) => {
         const setMarkerClick = () => onMarkerClick(lastLocation);
-        return <Marker
+        return lastLocation.location ? <Marker
           onClick={setMarkerClick}
           icon={MarkerIcon}
           position={{
@@ -42,7 +42,7 @@ const LocationsMap: any = compose(
               locationZone={lastLocation.location_zone}
               onClose={onCloseInfoBox} />
           }
-        </Marker>
+        </Marker> : null;
       })
     }
   </GoogleMap>
