@@ -6,6 +6,7 @@ const PetiteLogo = styled.img.attrs({
   src: Logo
 })`
   height: auto;
+  max-height: 280px;
   max-width: 100%;
   margin: auto;
 

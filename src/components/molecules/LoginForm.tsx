@@ -34,7 +34,7 @@ const LoginForm = ({ loading, onSubmit }: LoginProps) => (
       </SingleColumn>
       <SingleColumn>
         <TextAlign align='right'>
-          <AppButton htmlType='submit' loading={loading}>
+          <AppButton type='primary' htmlType='submit' loading={loading}>
             Iniciar sesión
         </AppButton>
         </TextAlign>
