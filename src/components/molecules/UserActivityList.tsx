@@ -18,7 +18,7 @@ const UserActivityList = ({
           title={`${user.first_name} ${user.last_name}`}
         />
         <div>
-          {user.activity} KM
+          {(Math.round((user.activity) * 100) / 100)} KM
         </div>
       </List.Item>
     )}
