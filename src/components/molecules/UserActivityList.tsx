@@ -10,6 +10,7 @@ const UserActivityList = ({
   users
 }: IUserActivityList) => (
   <List
+  locale={{emptyText: 'Sin choferes'}}
     dataSource={users}
     renderItem={(user: UserActivity) => (
       <List.Item key={user.id}>

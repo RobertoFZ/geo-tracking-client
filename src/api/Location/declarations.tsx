@@ -11,12 +11,14 @@ export interface Location extends Model {
 }
 
 export interface LastLocation extends Model {
+  color?: string;
   user: User;
   location: Location;
   location_zone: LocationZone;
 }
 
 export interface LocationActivity extends Model {
+  color?: string;
   location_zone: LocationZone;
   users: UserActivity[]
 }

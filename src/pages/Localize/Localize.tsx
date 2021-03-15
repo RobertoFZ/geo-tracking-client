@@ -11,12 +11,14 @@ import LocationZoneService from 'api/LocationZone';
 import ZonesSidebar from 'components/molecules/ZonesSidebar';
 import GeofencesMap from 'components/molecules/GoogleMaps/GeofencesMap';
 import { message } from 'antd';
+import { getRandomColor } from 'utils/common';
 
 
 const LocalizePage: React.FC<WithUserProps & RouteComponentProps> = (props) => {
   let zoneLocationsLoaded = false;
   const updateInterval = 60000; // 1 min
   let mapUpdateTimeout: NodeJS.Timeout;
+  let usedColors: string[] = [];
   const [loading, setLoading] = useState(false);
   const [loadingZones, setLoadingZones] = useState(false);
   const [locations, setLocations] = useState<LastLocation[]>([]);
@@ -36,7 +38,15 @@ const LocalizePage: React.FC<WithUserProps & RouteComponentProps> = (props) => {
   const getLocationActivity = async () => {
     try {
       setLoadingZones(true);
-      const location_activities = await LocationZoneService.activity();
+      let location_activities = await LocationZoneService.activity();
+
+      location_activities = location_activities.map((location: LocationActivity) => {
+        let color = getRandomColor(usedColors);
+        location.color = getRandomColor(usedColors);
+        usedColors.push(color);
+        return location;
+      });
+
       zoneLocationsLoaded = true;
       setLocationActivities(location_activities);
       setSelectedZones(location_activities);

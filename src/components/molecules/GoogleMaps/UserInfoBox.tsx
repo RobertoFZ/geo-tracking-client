@@ -5,19 +5,31 @@ import { InfoWindow } from 'react-google-maps';
 import moment from 'moment-timezone';
 
 interface IUserInfoBox {
+  dateText?: string;
+  date?: Date;
   user: User;
   locationZone: LocationZone;
   onClose?: () => void;
 }
 
 const DATE_FORMAT = 'DD/MM/YY h:mm a'
-const UserInfoBox = ({ user, locationZone, onClose }: IUserInfoBox) => (
+const UserInfoBox = ({
+  user,
+  dateText = 'Ultima conexión:',
+  date = undefined,
+  locationZone,
+  onClose
+}: IUserInfoBox) => (
   <InfoWindow
     onCloseClick={onClose}
   >
     <>
       {user.first_name} {user.last_name} - {locationZone ? locationZone.name : 'Sin zona asignada'} <br />
-      Ultima conexión: {user.last_connection ? moment.utc(user.last_connection).format(DATE_FORMAT) : 'No disponible'}
+      {
+        dateText && <>
+          {dateText} {date ? moment.utc(date).format(DATE_FORMAT) : 'No disponible'}
+        </>
+      }
     </>
   </InfoWindow>
 );

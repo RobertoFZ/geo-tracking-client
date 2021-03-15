@@ -1,14 +1,27 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import COLORS from 'shared/constants/colors';
 
 const { WHITE } = COLORS;
 
-const FloatingContainer = styled.div`
-  background-color: ${WHITE};
-  margin: 0 100px;
+interface IFloatingContainer {
+  backgroundColor?: string;
+  margin?: string;
+  bottom?: string;
+  top?: string;
+}
+
+const FloatingContainer = styled.div(({
+  backgroundColor = WHITE,
+  margin = '0 100px',
+  bottom = '30px',
+  top = 'auto'
+}: IFloatingContainer) => css`
+  background-color: ${backgroundColor};
+  margin: ${margin};
+  bottom: ${bottom};
+  top: ${top};
   position: absolute;
-  bottom: 100px;
   width: calc(100vw - 200px);
-`;
+`);
 
 export default FloatingContainer;

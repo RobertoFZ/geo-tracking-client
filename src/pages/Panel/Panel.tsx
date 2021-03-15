@@ -11,19 +11,27 @@ import FloatingContainer from 'components/atoms/FloatingContainer';
 import ActivityCollapseContainer from 'components/molecules/ActivityCollapseContainer';
 import LocationZoneService from 'api/LocationZone';
 import LocationsMap from 'components/molecules/GoogleMaps/LocationsMap';
+import { getRandomColor } from 'utils/common';
 
 
 
-const CalendarPage: React.FC<WithUserProps & RouteComponentProps> = (props) => {
+const PanelPage: React.FC<WithUserProps & RouteComponentProps> = (props) => {
   const updateInterval = 60000; // 1 min
   let mapUpdateTimeout: NodeJS.Timeout;
+  let usedColors: string[] = [];
   const [locations, setLocations] = useState<LastLocation[]>([]);
   const [locationActivities, setLocationActivities] = useState<LocationActivity[]>([]);
   const [selectedLocation, setSelectedLocation] = useState<LocationActivity | undefined>(undefined);
 
   const getLastLocations = async () => {
     try {
-      const locations = await LocationService.last();
+      let locations = await LocationService.last();
+      locations = locations.map((location: LastLocation) => {
+        let color = getRandomColor(usedColors);
+        location.color = getRandomColor(usedColors);
+        usedColors.push(color);
+        return location;
+      });
       setLocations(locations);
     } catch (error) {
       showMessage('Error', error.message, NoticeType.ERROR);
@@ -81,4 +89,4 @@ const CalendarPage: React.FC<WithUserProps & RouteComponentProps> = (props) => {
   )
 };
 
-export default CalendarPage;
+export default PanelPage;

@@ -3,6 +3,8 @@ import { withScriptjs, withGoogleMap, GoogleMap, Polygon, Marker } from 'react-g
 import { LastLocation, LocationActivity } from 'api/Location/declarations';
 import MarkerIcon from 'assets/marker.png';
 import UserInfoBox from './UserInfoBox';
+import { getGoogleMapMarkerWithColor } from 'utils/common';
+import { LocationZone } from 'api/LocationZone/declarations';
 
 const GeofencesMap: any = compose(
   withProps({
@@ -32,15 +34,23 @@ const GeofencesMap: any = compose(
       }
 
       let polygonProps = {
-        strokeColor: '#212121',
+        strokeColor: location_activity.color ?? '#212121',
         strokeOpacity: 0.8,
         strokeWeight: 2,
-        fillColor: '#212121',
+        fillColor: location_activity.color ?? '#212121',
         fillOpacity: 0.35,
       };
       return <Polygon key={location_zone.id} path={path} options={polygonProps} />
     });
   };
+
+  const findColorByLocationZone = (location: LastLocation) => {
+    const location_zone = locationZones.find(
+      (location_activity: LocationActivity) =>
+        location_activity.location_zone.id === location.location_zone.id
+    );
+    return location_zone ? location_zone.color ?? '#212121' : '#212121';
+  }
 
   return (
     <GoogleMap
@@ -53,7 +63,7 @@ const GeofencesMap: any = compose(
           const setMarkerClick = () => onMarkerClick(lastLocation);
           return <Marker
             onClick={setMarkerClick}
-            icon={MarkerIcon}
+            icon={getGoogleMapMarkerWithColor(findColorByLocationZone(lastLocation))}
             position={{
               lat: Number(lastLocation.location.latitude),
               lng: Number(lastLocation.location.longitude)
@@ -62,6 +72,7 @@ const GeofencesMap: any = compose(
               selectedLocation &&
               selectedLocation.user.id === lastLocation.user.id &&
               <UserInfoBox
+                date={lastLocation.user.last_connection}
                 user={lastLocation.user}
                 locationZone={lastLocation.location_zone}
                 onClose={onCloseInfoBox} />

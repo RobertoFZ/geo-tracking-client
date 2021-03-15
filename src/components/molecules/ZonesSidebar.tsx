@@ -43,7 +43,7 @@ const ZonesSidebar = ({
               ]}>
               <List.Item.Meta
                 title={item.location_zone.name}
-                description={`${item.users.filter((user: UserActivity) => user.on_route).length} usuarios`}
+                description={`${item.users.filter((user: UserActivity) => user.on_route).length} activos`}
               />
             </List.Item>
           )

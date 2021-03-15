@@ -1,6 +1,6 @@
 import axios from 'axios';
 import BaseService from "../BaseService";
-import { LastLocation, LocationActivity } from "./declarations";
+import { LastLocation } from "./declarations";
 
 export class LocationService extends BaseService {
   protected url: string | undefined = process.env.REACT_APP_API_URL;

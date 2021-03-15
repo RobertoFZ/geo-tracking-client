@@ -9,6 +9,7 @@ import { WithUserProps } from "hooks/withUser";
 import routes from "shared/constants/routes";
 import PanelPage from "pages/Panel";
 import LocalizePage from "pages/Localize";
+import ReportPage from "pages/Report";
 
 type Props = {
   userState?: WithUserProps;
@@ -18,13 +19,14 @@ const App = ({
   userState,
   ...rest
 }: Props) => {
-  const { login, home, panel, locate } = routes;
+  const { login, home, panel, locate, report } = routes;
   return (
     <Router>
       <GlobalStyle />
       <PrivateRoute path={home} exact component={() => <Redirect to={panel} />} {...userState!} />
       <PrivateRoute path={panel} exact component={PanelPage} {...userState!} {...rest} />
       <PrivateRoute path={locate} exact component={LocalizePage} {...userState!} {...rest} />
+      <PrivateRoute path={report} exact component={ReportPage} {...userState!} {...rest} />
       <Route path={login} exact component={Login} />
     </Router>
   )

@@ -3,9 +3,25 @@ import axios from 'axios';
 import BaseService from "../BaseService";
 import { LocationZone } from "./declarations";
 
-export class LocationService extends BaseService {
+export class LocationZoneService extends BaseService {
   protected url: string | undefined = process.env.REACT_APP_API_URL;
   protected name: string = 'location_zones';
+
+  async all(): Promise<LocationZone[]> {
+    try {
+      const response = await axios.get<LocationZone[]>(
+        `${this.url}/${this.name}/`,
+        this.getHeaders(),
+      );
+      return response.data as LocationZone[];
+    } catch (error) {
+      if (error.response) {
+        throw new Error(error.response.data.message);
+      } else {
+        throw new Error(error.message);
+      }
+    }
+  }
 
   async activity(): Promise<LocationActivity[]> {
     try {
@@ -24,5 +40,5 @@ export class LocationService extends BaseService {
   }
 }
 
-const service = new LocationService();
+const service = new LocationZoneService();
 export default service;
