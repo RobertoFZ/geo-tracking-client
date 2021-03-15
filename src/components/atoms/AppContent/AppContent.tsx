@@ -8,6 +8,7 @@ const AppContent = styled(Content)`
   padding: 0;
   margin: 0;
   min-height: calc(100vh - ${SPACING});
+  position: relative;
 `;
 
 export default AppContent;

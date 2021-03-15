@@ -14,7 +14,9 @@ export interface User extends Model {
   role: EUserRoles;
   is_active: boolean
   token: string;
+  on_route: boolean;
   profile: Profile;
+  last_connection?: Date;
 }
 
 export interface Profile extends Model {
@@ -37,6 +39,8 @@ export interface UserActivity extends Model {
   last_name: string;
   email: string;
   is_active: boolean;
+  on_route: boolean;
   profile: Profile;
   activity: number;
+  last_connection: Date;
 }
