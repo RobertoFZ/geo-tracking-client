@@ -32,7 +32,7 @@ const PanelPage: React.FC<WithUserProps & RouteComponentProps> = (props) => {
         usedColors.push(color);
         return location;
       });
-      setLocations(locations);
+      setLocations([...locations]);
     } catch (error) {
       showMessage('Error', error.message, NoticeType.ERROR);
     }
@@ -41,14 +41,17 @@ const PanelPage: React.FC<WithUserProps & RouteComponentProps> = (props) => {
   const getLocationActivity = async () => {
     try {
       const location_activities = await LocationZoneService.activity();
-      setLocationActivities(location_activities);
+      setLocationActivities([...location_activities]);
     } catch (error) {
       showMessage('Error', error.message, NoticeType.ERROR);
     }
   }
 
   const initMapUpdate = () => {
-    mapUpdateTimeout = setInterval(getLocationActivity, updateInterval);
+    mapUpdateTimeout = setInterval(() => {
+      getLocationActivity();
+      getLastLocations();
+    }, updateInterval);
   }
 
   const clearSelectedLocation = () => setSelectedLocation(undefined);
