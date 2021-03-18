@@ -4,4 +4,5 @@ export default {
   locate: '/locate',
   report: '/report',
   login: '/login',
+  print: '/print',
 }

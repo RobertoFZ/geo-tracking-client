@@ -2,7 +2,7 @@ import axios from 'axios';
 import BaseService from "../BaseService";
 import { LastLocation } from "./declarations";
 
-export class LocationService extends BaseService {
+export class LocationService extends BaseService<LastLocation> {
   protected url: string | undefined = process.env.REACT_APP_API_URL;
   protected name: string = 'locations';
 

@@ -3,7 +3,7 @@ import BaseService from "../BaseService";
 import { Response } from "./../BaseService/declarations";
 import { User } from "./declarations";
 
-export class UserService extends BaseService {
+export class UserService extends BaseService<User> {
   protected url: string | undefined = process.env.REACT_APP_API_URL;
   protected name: string = 'user';
 

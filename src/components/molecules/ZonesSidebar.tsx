@@ -22,7 +22,7 @@ const ZonesSidebar = ({
       (zone: LocationActivity) =>
         zone.location_zone.id === item.location_zone.id) !== undefined;
   }
-  console.log(locationActivity)
+
   return (
     <ZonesSidebarContainer>
       <List

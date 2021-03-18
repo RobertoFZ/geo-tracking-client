@@ -47,7 +47,7 @@ const GeofencesMap: any = compose(
   const findColorByLocationZone = (location: LastLocation) => {
     const location_zone = locationZones.find(
       (location_activity: LocationActivity) =>
-        location_activity.location_zone.id === location.location_zone.id
+       location.location_zone ? location_activity.location_zone.id === location.location_zone.id : false
     );
     return location_zone ? location_zone.color ?? '#212121' : '#212121';
   }

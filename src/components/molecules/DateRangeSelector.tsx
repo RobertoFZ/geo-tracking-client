@@ -1,5 +1,5 @@
 import { Form, Select, DatePicker, Button } from 'antd';
-import { SearchOutlined } from '@ant-design/icons';
+import { SearchOutlined, PrinterOutlined } from '@ant-design/icons';
 import moment, { Moment } from 'moment-timezone';
 import { LocationZone } from 'api/LocationZone/declarations';
 import locale from 'antd/es/date-picker/locale/es_ES';
@@ -20,6 +20,8 @@ interface IDateRangeSelector {
   loading?: boolean;
   zones?: LocationZone[];
   onFinish: (values: IDateRangeValues) => void;
+  onPrint: () => void;
+  disablePrint?: boolean;
 }
 
 const sharedStyles = {
@@ -30,6 +32,8 @@ const DateRangeSelector = ({
   loading = false,
   zones = [],
   onFinish,
+  disablePrint = true,
+  onPrint
 }: IDateRangeSelector) => (
   <Form onFinish={onFinish}>
     <Item
@@ -52,6 +56,13 @@ const DateRangeSelector = ({
       <Button type='primary' shape='circle' htmlType='submit' loading={loading}>
         {
           !loading && <SearchOutlined />
+        }
+      </Button>
+    </Item>
+    <Item style={sharedStyles}>
+      <Button type='primary' htmlType='button' loading={loading} onClick={onPrint} disabled={disablePrint}>
+        {
+          !loading && <PrinterOutlined />
         }
       </Button>
     </Item>

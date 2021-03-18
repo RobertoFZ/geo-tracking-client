@@ -27,14 +27,11 @@ const LoginPage: React.FC<RouteComponentProps & WithUserProps> = ({ history, set
       setLoading(true);
       const response: User = await AuthService.login(email, password);
       const { token } = response;
-      console.log(response)
+      setUser(response);
+      setToken(token);
       showMessage('Correcto', 'Has iniciado sesión correctamente.');
       setLoading(false);
-      setToken(token);
-      setUser(response);
-      setTimeout(() => {
-        history.push(routes.home);
-      }, 1000);
+      history.push(routes.home);
     } catch (error) {
       showMessage('Error', error.message, NoticeType.ERROR);
       setLoading(false);

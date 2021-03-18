@@ -1,26 +1,37 @@
-import { Collapse } from 'antd';
+import { Collapse, Pagination } from 'antd';
 import { CaretRightOutlined } from '@ant-design/icons';
 import ActivityCollapse from 'components/atoms/ActivityCollapse';
 import { ActivityReportRecord } from 'api/Report/declarations';
 import ReportList from './ReportList';
+import { PaginationData } from 'api/BaseService/declarations';
+import TextAlign from 'components/atoms/TextAlign/TextAlign';
 
 const { Panel } = Collapse;
 
 interface IReportResultsCollapse {
-  data: ActivityReportRecord[];
+  paginationData: PaginationData<ActivityReportRecord>;
   loading?: boolean;
+  onPageChange: (page: number, pageSize?: number) => void;
 }
 
 const ReportResultsCollapse = ({
-  data,
+  paginationData,
   loading = false,
+  onPageChange
 }: IReportResultsCollapse) => (
   <ActivityCollapse
     bordered={false}
     expandIcon={({ isActive }) => <CaretRightOutlined rotate={isActive ? 90 : 0} />}
   >
     <Panel header="Reporte" key="1">
-      <ReportList loading={loading} data={data} />
+      <ReportList loading={loading} data={paginationData.data} />
+      <TextAlign align='right'>
+        <Pagination
+          current={paginationData.page}
+          total={paginationData.count}
+          pageSize={paginationData.limit}
+          onChange={onPageChange} />
+      </TextAlign>
     </Panel>
   </ActivityCollapse>
 )

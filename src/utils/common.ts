@@ -7,7 +7,7 @@ export function getUserToken() {
 export function getRandomColor(usedColors: string[] = []): string {
   const randomNumber = Math.floor(Math.random() * staticColors.length - 1);
   let color = staticColors[randomNumber];
-  console.log(randomNumber)
+
   if (usedColors.find((usedColor: string) => color !== usedColor)) {
     return getRandomColor(usedColors);
   }

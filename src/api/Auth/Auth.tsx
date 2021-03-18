@@ -4,7 +4,7 @@ import BaseService from '../BaseService/BaseService';
 import { Response } from '../BaseService/declarations';
 import { AuthResponse } from './declarations';
 
-export class AuthService extends BaseService {
+export class AuthService extends BaseService<User> {
   protected name = 'auth';
 
   async login(email: string, password: string): Promise<User> {

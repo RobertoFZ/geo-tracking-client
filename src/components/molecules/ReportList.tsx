@@ -5,16 +5,19 @@ import { EnvironmentOutlined } from '@ant-design/icons';
 interface IReportList {
   data: ActivityReportRecord[];
   loading?: boolean;
+  padding?: string;
 }
 
 const ReportList = ({
   data,
-  loading = false
+  loading = false,
+  padding
 }: IReportList) => (
   <List
     locale={{ emptyText: 'Sin datos' }}
     loading={loading}
     dataSource={data}
+    style={{padding: padding ?? ''}}
     renderItem={(record: ActivityReportRecord) => (
       <List.Item key={record.user.id}>
         <List.Item.Meta
