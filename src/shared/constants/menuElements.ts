@@ -4,6 +4,7 @@ const {
   home,
   locate,
   report,
+  users
 } = routes;
 
 export type MenuElement = {
@@ -18,6 +19,7 @@ export enum EMenuKeys {
   PANEL = 'panel',
   LOCATE = 'locate',
   REPORT = 'report',
+  USERS = 'users',
 }
 
 export default [
@@ -38,5 +40,11 @@ export default [
     options: [],
     text: 'Reporte',
     route: report,
+  },
+  {
+    key: EMenuKeys.USERS,
+    options: [],
+    text: 'Usuarios',
+    route: users,
   },
 ];

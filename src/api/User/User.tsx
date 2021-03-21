@@ -1,20 +1,19 @@
 import axios from 'axios';
 import BaseService from "../BaseService";
-import { Response } from "./../BaseService/declarations";
+import { PaginatedResponse, PaginationData, Response } from "./../BaseService/declarations";
 import { User } from "./declarations";
 
 export class UserService extends BaseService<User> {
   protected url: string | undefined = process.env.REACT_APP_API_URL;
-  protected name: string = 'user';
+  protected name: string = 'users';
 
-  async me(): Promise<User> {
+  async find(paginationData: PaginationData<User>): Promise<PaginatedResponse<User>> {
     try {
-      const response = await axios.get<Response<User>>(
-        `${this.url}/${this.name}/me`,
-        this.getHeaders(),
+      const response = await axios.get<PaginatedResponse<User>>(
+        `${this.url}/${this.name}/`,
+        this.getHeaders(paginationData),
       );
-      const { data: axiosData } = response;
-      return axiosData.data as User;
+      return response.data as PaginatedResponse<User>;
     } catch (error) {
       if (error.response) {
         throw new Error(error.response.data.message);

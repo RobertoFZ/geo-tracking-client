@@ -5,4 +5,5 @@ export default {
   report: '/report',
   login: '/login',
   print: '/print',
+  users: '/users',
 }

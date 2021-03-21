@@ -1,4 +1,5 @@
 import { Model } from "api/BaseService/declarations";
+import { LocationAssignation } from "api/LocationAssignation/declarations";
 
 export enum EUserRoles {
   ADMIN = 'admin',
@@ -17,6 +18,7 @@ export interface User extends Model {
   on_route: boolean;
   profile: Profile;
   last_connection?: Date;
+  assignation?: LocationAssignation;
 }
 
 export interface Profile extends Model {
