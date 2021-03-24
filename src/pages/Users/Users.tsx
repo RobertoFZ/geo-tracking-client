@@ -14,6 +14,7 @@ import Container from 'components/atoms/Container/Container';
 import { Card } from 'antd';
 import LocationAssignationService from 'api/LocationAssignation';
 import { LocationAssignation } from 'api/LocationAssignation/declarations';
+import AuthService from 'api/Auth';
 
 const UsersPage: React.FC<WithUserProps & RouteComponentProps> = (props) => {
   const [loading, setLoading] = useState(true);
@@ -61,7 +62,19 @@ const UsersPage: React.FC<WithUserProps & RouteComponentProps> = (props) => {
     } catch (error) {
       showMessage('Error', error.message, NoticeType.ERROR);
     }
+  }
 
+  const resetPassword = async (email: string) => {
+    try {
+      setLoading(true);
+      await AuthService.resetPassword(email);
+      showMessage('Correcto', 'Se ha enviado la nueva contraseña al usuario', NoticeType.SUCCESS);
+      setLoading(false);
+      getUsers();
+    } catch (error) {
+      showMessage('Error', error.message, NoticeType.ERROR);
+      setLoading(false);
+    }
   }
 
   const onPageChange = (page: number) => {
@@ -86,7 +99,8 @@ const UsersPage: React.FC<WithUserProps & RouteComponentProps> = (props) => {
             loading={loading}
             onZoneChange={assignZone}
             paginationData={paginationData}
-            onPageChange={onPageChange} />
+            onPageChange={onPageChange}
+            onPasswordReset={resetPassword} />
         </Card>
       </Container>
     </MainLayout>

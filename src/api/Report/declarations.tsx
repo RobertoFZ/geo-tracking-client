@@ -17,6 +17,7 @@ export interface ActivityReportRecord {
   from: string;
   to: string;
   time: number; // Minutes
+  distance: number; // KM
 }
 
 export interface PaginatedReport extends PaginatedResponse<ActivityReportRecord> {

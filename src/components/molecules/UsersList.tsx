@@ -1,5 +1,5 @@
 import React from 'react';
-import { Avatar, List, Select, Skeleton } from 'antd';
+import { Avatar, Button, List, Popconfirm, Select, Skeleton } from 'antd';
 import { User } from 'api/User/declarations';
 import { LocationZone } from 'api/LocationZone/declarations';
 import { PaginationData } from 'api/BaseService/declarations';
@@ -11,6 +11,7 @@ interface IUsersList {
   onZoneChange: (user: User, zone_id: number) => void;
   paginationData: PaginationData<User>;
   onPageChange: (page: number) => void;
+  onPasswordReset: (email: string) => void;
 }
 
 const UsersList = ({
@@ -19,7 +20,8 @@ const UsersList = ({
   loading = false,
   onZoneChange,
   paginationData,
-  onPageChange
+  onPageChange,
+  onPasswordReset
 }: IUsersList) => (
   <List
     loading={loading}
@@ -34,6 +36,13 @@ const UsersList = ({
     renderItem={(item: User) => (
       <List.Item
         actions={[
+          <Popconfirm
+            title={'¿Seguro que desea enviar una nueva contraseña al usuario?'}
+            okText='Sí'
+            cancelText='Cancelar'
+            onConfirm={() => onPasswordReset(item.email)}>
+            <Button type='primary'>Reestablecer contraseña</Button>
+          </Popconfirm>,
           <Select
             onChange={(value: number) => onZoneChange(item, value)}
             value={item.assignation?.location_zone_id}

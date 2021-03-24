@@ -3,6 +3,7 @@ import { withScriptjs, withGoogleMap, GoogleMap, Marker } from 'react-google-map
 import { LastLocation } from 'api/Location/declarations';
 import MarkerIcon from 'assets/marker.png';
 import UserInfoBox from './UserInfoBox';
+import { getGoogleMapMarkerWithColor } from 'utils/common';
 
 const LocationsMap: any = compose(
   withProps({
@@ -28,7 +29,7 @@ const LocationsMap: any = compose(
         const setMarkerClick = () => onMarkerClick(lastLocation);
         return lastLocation.location ? <Marker
           onClick={setMarkerClick}
-          icon={MarkerIcon}
+          icon={getGoogleMapMarkerWithColor('#2196F3')}
           position={{
             lat: Number(lastLocation.location.latitude),
             lng: Number(lastLocation.location.longitude)

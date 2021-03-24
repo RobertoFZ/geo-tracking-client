@@ -17,13 +17,14 @@ import ReportMap from 'components/molecules/GoogleMaps/ReportMap';
 import { getRandomColor } from 'utils/common';
 import ReportResultsCollapse from 'components/molecules/ReportResultsCollapse';
 import { PaginationData } from 'api/BaseService/declarations';
-import moment from 'moment-timezone';
+import moment, { Moment } from 'moment-timezone';
 import routes from 'shared/constants/routes';
 
 
 
 const ReportPage: React.FC<WithUserProps & RouteComponentProps> = (props) => {
   let usedColors: string[] = [];
+  const [dateRange, setDateRange] = useState<Moment[]>([]);
   const [request, setRequest] = useState<ActivityReportRequest | undefined>(undefined);
   const [loading, setLoading] = useState(false);
   const [locationZones, setLocationZones] = useState<LocationZone[]>([]);
@@ -61,7 +62,7 @@ const ReportPage: React.FC<WithUserProps & RouteComponentProps> = (props) => {
   const onSearchReport = async (values: IDateRangeValues) => {
     // https://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=•|bdbdbd
     try {
-
+      setDateRange([values.range[0], values.range[1]]);
       setLoading(true);
       const request: ActivityReportRequest = {
         from: values.range[0].hour(0).minute(0).second(0).toDate(),
@@ -138,6 +139,7 @@ const ReportPage: React.FC<WithUserProps & RouteComponentProps> = (props) => {
         <ReportResultsCollapse
           loading={loading}
           paginationData={paginationData}
+          dateRange={dateRange}
           onPageChange={onPageChange}
         />
       </FloatingContainer>
