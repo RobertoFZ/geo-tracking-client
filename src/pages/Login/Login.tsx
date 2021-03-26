@@ -1,11 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import GradiantBackground from 'components/atoms/GradientBackground/GradientBackground';
 import COLORS from 'shared/constants/colors';
 import LoginForm from 'components/molecules/LoginForm';
 import CenterVerticallyContainer from 'components/molecules/CenterVerticallyContainer';
-import StaticImage from 'components/atoms/StaticImage/StaticImage';
-import Element from 'assets/element.png';
-import { AuthRequest, AuthResponse } from 'api/Auth/declarations';
+import { AuthRequest } from 'api/Auth/declarations';
 import showMessage, { NoticeType } from 'utils/notifications';
 import AuthService from 'api/Auth';
 import useToken from 'hooks/useToken';
@@ -15,8 +13,6 @@ import withUser, { WithUserProps } from 'hooks/withUser';
 import { User } from 'api/User/declarations';
 
 const { WHITE } = COLORS;
-
-const IMAGE_SPACING = 40;
 
 const LoginPage: React.FC<RouteComponentProps & WithUserProps> = ({ history, setUser, clearUser }) => {
   const [loading, setLoading] = useState(false);
@@ -44,7 +40,6 @@ const LoginPage: React.FC<RouteComponentProps & WithUserProps> = ({ history, set
 
   return (
     <>
-      <StaticImage src={Element} bottom={IMAGE_SPACING} left={IMAGE_SPACING} maxWidthSM={200} />
       <GradiantBackground firstColor={WHITE} secondColor={WHITE}>
         <CenterVerticallyContainer>
           <LoginForm onSubmit={handleSubmit} loading={loading} />
