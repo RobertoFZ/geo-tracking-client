@@ -44,7 +44,7 @@ const ReportPrintPage: React.FC<WithUserProps & RouteComponentProps> = (props) =
 
       results = results.map((reportRecord: ActivityReportRecord) => {
         let color = getRandomColor(usedColors);
-        reportRecord.color = getRandomColor(usedColors);
+        reportRecord.color = color;
         usedColors.push(color);
         return reportRecord;
       });
