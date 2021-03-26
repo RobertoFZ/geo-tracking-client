@@ -26,7 +26,7 @@ const ReportList = ({
     renderItem={(record: ActivityReportRecord) => (
       <List.Item key={record.user.id}>
         <List.Item.Meta
-          avatar={<Avatar style={{ backgroundColor: record.color ?? '#212121' }} icon={<EnvironmentOutlined />} />}
+          avatar={<Avatar style={{ backgroundColor: record.color ?? '#212121', WebkitPrintColorAdjust: 'exact' }} icon={<EnvironmentOutlined />} />}
           title={`${record.user.first_name} ${record.user.last_name}`}
         />
         <div style={{ textAlign: 'right' }}>

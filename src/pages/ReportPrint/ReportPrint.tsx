@@ -49,9 +49,11 @@ const ReportPrintPage: React.FC<WithUserProps & RouteComponentProps> = (props) =
         return reportRecord;
       });
       setResults(results);
-
       setLoading(false);
-      setTimeout(() => window.print(), 2000);
+      
+      setTimeout(() => {
+        window.print();
+      }, 3000);
     } catch (error) {
       showMessage('Error', error.message, NoticeType.ERROR);
       setLoading(false);
