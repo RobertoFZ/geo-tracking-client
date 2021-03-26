@@ -42,7 +42,7 @@ const LocalizePage: React.FC<WithUserProps & RouteComponentProps> = (props) => {
 
       location_activities = location_activities.map((location: LocationActivity) => {
         let color = getRandomColor(usedColors);
-        location.color = getRandomColor(usedColors);
+        location.color = color;
         usedColors.push(color);
         return location;
       });
