@@ -10,6 +10,15 @@ export const GlobalStyle = createGlobalStyle`
     -moz-osx-font-smoothing: grayscale;
   }
 
+  .slick-arrow {
+    background: rgba(0, 0, 0, 0.85);
+    border-radius: 50% !important;
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.85);
+    }
+  }
+
   // Animation
   @-webkit-keyframes GradientAnimation {
     0% {
