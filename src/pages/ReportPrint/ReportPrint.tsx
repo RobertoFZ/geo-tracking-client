@@ -35,8 +35,8 @@ const ReportPrintPage: React.FC<WithUserProps & RouteComponentProps> = (props) =
 
       setLoading(true);
       const request: ActivityReportRequest = {
-        from: values.range[0].hour(0).minute(0).second(0).toDate(),
-        to: values.range[1].hour(23).minute(59).second(59).toDate(),
+        from: values.range[0].toDate(),
+        to: values.range[1].toDate(),
         zone_id: values.zone,
       }
 
