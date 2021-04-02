@@ -50,7 +50,7 @@ const DateRangeSelector = ({
       name='range'
       rules={[{ required: true, message: '' }]}
       style={sharedStyles}>
-      <RangePicker locale={locale} format='DD-MM-YYYY' />
+      <RangePicker locale={locale} format='DD-MM-YYYY h:mm a' showTime />
     </Item>
     <Item style={sharedStyles}>
       <Button type='primary' shape='circle' htmlType='submit' loading={loading}>

@@ -12,6 +12,7 @@ interface IUsersList {
   paginationData: PaginationData<User>;
   onPageChange: (page: number) => void;
   onPasswordReset: (email: string) => void;
+  onDeleteUser: (user: User) => void;
 }
 
 const UsersList = ({
@@ -21,7 +22,8 @@ const UsersList = ({
   onZoneChange,
   paginationData,
   onPageChange,
-  onPasswordReset
+  onPasswordReset,
+  onDeleteUser,
 }: IUsersList) => (
   <List
     loading={loading}
@@ -36,6 +38,13 @@ const UsersList = ({
     renderItem={(item: User) => (
       <List.Item
         actions={[
+          <Popconfirm
+            title={'¿Seguro que desea eliminar al usuario?'}
+            okText='Sí'
+            cancelText='Cancelar'
+            onConfirm={() => onDeleteUser(item)}>
+            <Button type='primary' danger>Eliminar</Button>
+          </Popconfirm>,
           <Popconfirm
             title={'¿Seguro que desea enviar una nueva contraseña al usuario?'}
             okText='Sí'
@@ -59,7 +68,7 @@ const UsersList = ({
           avatar={
             <Avatar>{`${item.first_name[0]}${item.last_name[0]}`}</Avatar>
           }
-          title={`${item.first_name} ${item.last_name}`}
+          title={`${item.first_name} ${item.last_name} (${item.on_route ? 'Activo' : 'Inactivo'})`}
         />
       </List.Item>
     )}

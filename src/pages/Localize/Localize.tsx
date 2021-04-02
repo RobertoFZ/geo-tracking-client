@@ -12,11 +12,12 @@ import ZonesSidebar from 'components/molecules/ZonesSidebar';
 import GeofencesMap from 'components/molecules/GoogleMaps/GeofencesMap';
 import { message } from 'antd';
 import { getRandomColor } from 'utils/common';
+import { User, UserActivity } from 'api/User/declarations';
 
 
 const LocalizePage: React.FC<WithUserProps & RouteComponentProps> = (props) => {
   let zoneLocationsLoaded = false;
-  const updateInterval = 60000; // 1 min
+  const updateInterval = 120 * 1000; // 2 min
   let mapUpdateTimeout: NodeJS.Timeout;
   let usedColors: string[] = [];
   const [loading, setLoading] = useState(false);
@@ -28,7 +29,21 @@ const LocalizePage: React.FC<WithUserProps & RouteComponentProps> = (props) => {
 
   const getLastLocations = async () => {
     try {
-      const locations = await LocationService.last();
+      let locations = await LocationService.last();
+
+      if (zoneLocationsLoaded) {
+        locations = locations.filter((location: LastLocation) => {
+          let existInSelectedZones = true;
+          selectedZones.forEach((zone: LocationActivity) => {
+            const user = zone.users.find((user: UserActivity) => location.user.id === user.id);
+            if (!user) {
+              existInSelectedZones = false;
+            }
+          });
+          return existInSelectedZones;
+        })
+      }
+
       setLocations(locations);
     } catch (error) {
       showMessage('Error', error.message, NoticeType.ERROR);
@@ -47,9 +62,13 @@ const LocalizePage: React.FC<WithUserProps & RouteComponentProps> = (props) => {
         return location;
       });
 
+      if (!zoneLocationsLoaded) {
+        setSelectedZones(location_activities);
+      }
+
       zoneLocationsLoaded = true;
       setLocationActivities(location_activities);
-      setSelectedZones(location_activities);
+
       setLoadingZones(false);
     } catch (error) {
       showMessage('Error', error.message, NoticeType.ERROR);

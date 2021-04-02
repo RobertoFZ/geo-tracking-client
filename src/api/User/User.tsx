@@ -22,6 +22,22 @@ export class UserService extends BaseService<User> {
       }
     }
   }
+
+  async delete(user: User): Promise<boolean> {
+    try {
+      const response = await axios.delete<boolean>(
+        `${this.url}/${this.name}/${user.id}`,
+        this.getHeaders(),
+      );
+      return true;
+    } catch (error) {
+      if (error.response) {
+        throw new Error(error.response.data.message);
+      } else {
+        throw new Error(error.message);
+      }
+    }
+  }
 }
 
 const service = new UserService();

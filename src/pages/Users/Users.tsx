@@ -77,6 +77,19 @@ const UsersPage: React.FC<WithUserProps & RouteComponentProps> = (props) => {
     }
   }
 
+  const onDeleteUser = async (user: User) => {
+    try {
+      setLoading(true);
+      await UserService.delete(user);
+      showMessage('Correcto', 'Se ha eliminado al usuario', NoticeType.SUCCESS);
+      setLoading(false);
+      getUsers();
+    } catch (error) {
+      showMessage('Error', error.message, NoticeType.ERROR);
+      setLoading(false);
+    }
+  }
+
   const onPageChange = (page: number) => {
     paginationData.page = page;
     setPaginationData(paginationData);
@@ -100,7 +113,8 @@ const UsersPage: React.FC<WithUserProps & RouteComponentProps> = (props) => {
             onZoneChange={assignZone}
             paginationData={paginationData}
             onPageChange={onPageChange}
-            onPasswordReset={resetPassword} />
+            onPasswordReset={resetPassword}
+            onDeleteUser={onDeleteUser}/>
         </Card>
       </Container>
     </MainLayout>

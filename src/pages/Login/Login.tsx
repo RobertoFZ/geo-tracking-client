@@ -25,13 +25,10 @@ const LoginPage: React.FC<RouteComponentProps & WithUserProps> = ({ history, set
       const { token } = response;
       setUser(response);
       setToken(token);
-      setTimeout(() => {
-        history.push(routes.home);
-        history.go(1);
-      }, 1000);
 
       showMessage('Correcto', 'Has iniciado sesión correctamente.');
       setLoading(false);
+      window.location.href = routes.home;
     } catch (error) {
       showMessage('Error', error.message, NoticeType.ERROR);
       setLoading(false);

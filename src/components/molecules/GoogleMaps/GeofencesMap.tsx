@@ -54,8 +54,8 @@ const GeofencesMap: any = compose(
 
   return (
     <GoogleMap
-      defaultZoom={13}
-      defaultCenter={{ lat: 20.976829, lng: -89.619143 }}
+      defaultZoom={8}
+      defaultCenter={{ lat: 20.770586, lng: -88.963185 }}
     >
       {displayGeofences(locationZones)}
       {
