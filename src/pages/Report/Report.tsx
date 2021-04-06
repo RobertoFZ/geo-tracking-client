@@ -31,7 +31,7 @@ const ReportPage: React.FC<WithUserProps & RouteComponentProps> = (props) => {
   const [paginationData, setPaginationData] = useState<PaginationData<ActivityReportRecord>>({
     data: [],
     count: 0,
-    limit: 10,
+    limit: 5,
     offset: 0,
     page: 1
   });
@@ -105,6 +105,12 @@ const ReportPage: React.FC<WithUserProps & RouteComponentProps> = (props) => {
     window.open(`${routes.print}?from=${request?.from.toISOString()}&to=${request?.to.toISOString()}&zone_id=${request?.zone_id}`, '_blank');
   }
 
+  const onInformationSet = (values: IDateRangeValues) => {
+    paginationData.page = 1;
+    setPaginationData(paginationData);
+    onSearchReport(values);
+  }
+
   useEffect(() => {
     getLocationZones();
   }, []);
@@ -129,7 +135,7 @@ const ReportPage: React.FC<WithUserProps & RouteComponentProps> = (props) => {
         <TextAlign>
           <DateRangeSelector
             loading={loading}
-            onFinish={onSearchReport}
+            onFinish={onInformationSet}
             zones={locationZones} 
             disablePrint={request === undefined}
             onPrint={goToPrintPage}/>

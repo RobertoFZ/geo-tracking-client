@@ -61,9 +61,11 @@ const GeofencesMap: any = compose(
       {
         locations.map((lastLocation: LastLocation) => {
           const setMarkerClick = () => onMarkerClick(lastLocation);
-          return lastLocation.location ? <Marker
+          const color = findColorByLocationZone(lastLocation);
+
+          return lastLocation.location && color !== '#212121' ? <Marker
             onClick={setMarkerClick}
-            icon={getGoogleMapMarkerWithColor(findColorByLocationZone(lastLocation))}
+            icon={getGoogleMapMarkerWithColor(color)}
             position={{
               lat: Number(lastLocation.location.latitude),
               lng: Number(lastLocation.location.longitude)

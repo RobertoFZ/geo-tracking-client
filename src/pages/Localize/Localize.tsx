@@ -20,6 +20,7 @@ const LocalizePage: React.FC<WithUserProps & RouteComponentProps> = (props) => {
   const updateInterval = 120 * 1000; // 2 min
   let mapUpdateTimeout: NodeJS.Timeout;
   let usedColors: string[] = [];
+  let selectedZonesBackup: LocationActivity[] = [];
   const [loading, setLoading] = useState(false);
   const [loadingZones, setLoadingZones] = useState(false);
   const [locations, setLocations] = useState<LastLocation[]>([]);
@@ -29,22 +30,23 @@ const LocalizePage: React.FC<WithUserProps & RouteComponentProps> = (props) => {
 
   const getLastLocations = async () => {
     try {
+      setLoading(true);
       let locations = await LocationService.last();
 
       if (zoneLocationsLoaded) {
         locations = locations.filter((location: LastLocation) => {
-          let existInSelectedZones = true;
-          selectedZones.forEach((zone: LocationActivity) => {
+          let existInSelectedZones = false;
+          selectedZonesBackup.forEach((zone: LocationActivity) => {
             const user = zone.users.find((user: UserActivity) => location.user.id === user.id);
-            if (!user) {
-              existInSelectedZones = false;
+            if (user !== undefined) {
+              existInSelectedZones = true;
             }
           });
-          return existInSelectedZones;
+          return location.location_zone && existInSelectedZones;
         })
       }
-
-      setLocations(locations);
+      setLoading(false);
+      setLocations([...locations]);
     } catch (error) {
       showMessage('Error', error.message, NoticeType.ERROR);
     }
@@ -61,15 +63,14 @@ const LocalizePage: React.FC<WithUserProps & RouteComponentProps> = (props) => {
         usedColors.push(color);
         return location;
       });
-
       if (!zoneLocationsLoaded) {
-        setSelectedZones(location_activities);
+        selectedZonesBackup = location_activities;
+        setSelectedZones([...location_activities]);
       }
-
-      zoneLocationsLoaded = true;
-      setLocationActivities(location_activities);
+      setLocationActivities([...location_activities]);
 
       setLoadingZones(false);
+      zoneLocationsLoaded = true;
     } catch (error) {
       showMessage('Error', error.message, NoticeType.ERROR);
       setLoadingZones(false);
@@ -107,7 +108,10 @@ const LocalizePage: React.FC<WithUserProps & RouteComponentProps> = (props) => {
     } else {
       newSelectedZones.push(location_activity);
     }
+
+    selectedZonesBackup = [...newSelectedZones];
     setSelectedZones([...newSelectedZones]);
+    await getLastLocations();
     await new Promise((resolve: any) => setTimeout(() => {
       setLoading(false);
       setTimeout(hide, 1000);
@@ -116,8 +120,8 @@ const LocalizePage: React.FC<WithUserProps & RouteComponentProps> = (props) => {
   }
 
   useEffect(() => {
-    getLastLocations();
     initMapUpdate();
+    getLastLocations();
     if (!zoneLocationsLoaded) {
       getLocationActivity();
     }
