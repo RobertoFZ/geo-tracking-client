@@ -17,7 +17,6 @@ import { message } from 'antd';
 
 
 const PanelPage: React.FC<WithUserProps & RouteComponentProps> = (props) => {
-  let loader;
   const updateInterval = 60000; // 1 min
   let mapUpdateTimeout: NodeJS.Timeout;
   let usedColors: string[] = [];
@@ -27,7 +26,6 @@ const PanelPage: React.FC<WithUserProps & RouteComponentProps> = (props) => {
 
   const getLastLocations = async () => {
     try {
-      loader = message.loading('Consultando ubicaciones', 0);
       let locations = await LocationService.last();
       locations = locations.map((location: LastLocation) => {
         let color = getRandomColor(usedColors);
@@ -36,7 +34,6 @@ const PanelPage: React.FC<WithUserProps & RouteComponentProps> = (props) => {
         return location;
       });
       setLocations([...locations]);
-      setTimeout(loader, 500);
     } catch (error) {
       showMessage('Error', error.message, NoticeType.ERROR);
     }
