@@ -18,7 +18,7 @@ const UserActivityList = ({
           title={`${user.first_name} ${user.last_name}`}
         />
         <div>
-        Tiempo activo: {(Math.round((user.time / 60) * 100) / 100)} hrs - {(Math.round((user.activity) * 100) / 100)} KM
+        Tiempo activo: {(Math.round((user.activity.time / 60) * 100) / 100)} hrs - {(Math.round((user.activity.distance) * 100) / 100)} KM
         </div>
       </List.Item>
     )}

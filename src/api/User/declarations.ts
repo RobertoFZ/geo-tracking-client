@@ -43,7 +43,9 @@ export interface UserActivity extends Model {
   is_active: boolean;
   on_route: boolean;
   profile: Profile;
-  activity: number;
-  time: number;
+  activity: {
+    time: number;
+    distance: number;
+  };
   last_connection: Date;
 }
