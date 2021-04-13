@@ -38,7 +38,7 @@ const LocationsMap: any = compose(
             selectedLocation &&
             selectedLocation.user.id === lastLocation.user.id &&
             <UserInfoBox
-              date={lastLocation.user.last_connection}
+              date={lastLocation.location.date}
               user={lastLocation.user}
               locationZone={lastLocation.location_zone}
               onClose={onCloseInfoBox} />
