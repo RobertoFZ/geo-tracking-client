@@ -13,6 +13,7 @@ interface IUsersList {
   onPageChange: (page: number) => void;
   onPasswordReset: (email: string) => void;
   onDeleteUser: (user: User) => void;
+  onSizeChange: (current: number, size: number) => void;
 }
 
 const UsersList = ({
@@ -24,6 +25,7 @@ const UsersList = ({
   onPageChange,
   onPasswordReset,
   onDeleteUser,
+  onSizeChange
 }: IUsersList) => (
   <List
     loading={loading}
@@ -33,7 +35,8 @@ const UsersList = ({
       total: paginationData.count,
       pageSize: paginationData.limit,
       current: paginationData.page,
-      onChange: onPageChange
+      onChange: onPageChange,
+      onShowSizeChange: onSizeChange,
     }}
     renderItem={(item: User) => (
       <List.Item

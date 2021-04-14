@@ -22,7 +22,7 @@ const UsersPage: React.FC<WithUserProps & RouteComponentProps> = (props) => {
   const [paginationData, setPaginationData] = useState<PaginationData<User>>({
     data: [],
     count: 0,
-    limit: 10,
+    limit: 50,
     offset: 0,
     page: 1
   });
@@ -96,6 +96,12 @@ const UsersPage: React.FC<WithUserProps & RouteComponentProps> = (props) => {
     getUsers();
   }
 
+  const onSizePageChange = (current: number, size: number) => {
+    paginationData.limit = size;
+    setPaginationData(paginationData);
+    getUsers();
+  }
+
   useEffect(() => {
     getLocationZones();
     getUsers();
@@ -114,7 +120,8 @@ const UsersPage: React.FC<WithUserProps & RouteComponentProps> = (props) => {
             paginationData={paginationData}
             onPageChange={onPageChange}
             onPasswordReset={resetPassword}
-            onDeleteUser={onDeleteUser}/>
+            onDeleteUser={onDeleteUser}
+            onSizeChange={onSizePageChange}/>
         </Card>
       </Container>
     </MainLayout>
