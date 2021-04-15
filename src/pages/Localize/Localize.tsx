@@ -43,7 +43,7 @@ const LocalizePage: React.FC<WithUserProps & RouteComponentProps> = (props) => {
             }
           });
           return location.location_zone && existInSelectedZones;
-        })
+        });
       }
       setLoading(false);
       setLocations([...locations]);
@@ -71,6 +71,7 @@ const LocalizePage: React.FC<WithUserProps & RouteComponentProps> = (props) => {
 
       setLoadingZones(false);
       zoneLocationsLoaded = true;
+      getLastLocations();
     } catch (error) {
       showMessage('Error', error.message, NoticeType.ERROR);
       setLoadingZones(false);
@@ -121,7 +122,6 @@ const LocalizePage: React.FC<WithUserProps & RouteComponentProps> = (props) => {
 
   useEffect(() => {
     initMapUpdate();
-    getLastLocations();
     if (!zoneLocationsLoaded) {
       getLocationActivity();
     }
