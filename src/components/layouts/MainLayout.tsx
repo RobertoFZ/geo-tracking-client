@@ -47,7 +47,7 @@ const MainLayout: React.FC<Props> = ({
         <AppContent>
           {children}
         </AppContent>
-        <Footer style={{ textAlign: 'center' }}>Franzet ©{new Date().getFullYear()} Created by Ant UED</Footer>
+        <Footer style={{ textAlign: 'center' }}>Shapp Inc ©{new Date().getFullYear()}</Footer>
       </Layout>
     </>
   )
