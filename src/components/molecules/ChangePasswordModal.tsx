@@ -4,7 +4,7 @@ import showMessage, { NoticeType } from "utils/notifications";
 
 export interface IChangePasswordModal {
   visible: boolean;
-  onOk: () => void;
+  onOk: (password: string) => void;
   onCancel: () => void;
   loading?: boolean;
 }
@@ -29,7 +29,7 @@ const ChangePasswordModal = ({ visible, loading, onOk, onCancel }: IChangePasswo
       showMessage('Espera', 'Las contraseñas no coinciden', NoticeType.WARNING);
       return;
     }
-    onOk();
+    onOk(password);
   }
 
   return <Modal

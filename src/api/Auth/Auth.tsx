@@ -35,9 +35,9 @@ export class AuthService extends BaseService<User> {
     }
   }
 
-  async resetPassword(email: string): Promise<void> {
+  async resetPassword(email: string, password: string): Promise<void> {
     try {
-      await axios.post(`${this.url}/${this.name}/reset`, { email }, this.getHeaders());
+      await axios.post(`${this.url}/${this.name}/reset`, { email, password}, this.getHeaders());
     } catch (error) {
       if (error.response) {
         throw new Error(error.response.data.message);

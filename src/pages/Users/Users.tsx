@@ -72,10 +72,10 @@ const UsersPage: React.FC<WithUserProps & RouteComponentProps> = (props) => {
     setShowModal(true);
   }
 
-  const resetPassword = async () => {
+  const resetPassword = async (password: string) => {
     try {
       setLoading(true);
-      await AuthService.resetPassword(currentEmail!);
+      await AuthService.resetPassword(currentEmail!, password);
       setCurrentEmail(undefined);
       setShowModal(false);
       showMessage('Correcto', 'Se ha enviado la nueva contraseña al usuario', NoticeType.SUCCESS);
