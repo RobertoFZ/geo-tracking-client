@@ -49,7 +49,7 @@ const UsersList = ({
             <Button type='primary' danger>Eliminar</Button>
           </Popconfirm>,
           <Popconfirm
-            title={'¿Seguro que desea enviar una nueva contraseña al usuario?'}
+            title={'¿Seguro que deseas asignar una nueva contraseña al usuario?'}
             okText='Sí'
             cancelText='Cancelar'
             onConfirm={() => onPasswordReset(item.email)}>

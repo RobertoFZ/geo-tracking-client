@@ -15,8 +15,11 @@ import { Card } from 'antd';
 import LocationAssignationService from 'api/LocationAssignation';
 import { LocationAssignation } from 'api/LocationAssignation/declarations';
 import AuthService from 'api/Auth';
+import ChangePasswordModal from 'components/molecules/ChangePasswordModal';
 
 const UsersPage: React.FC<WithUserProps & RouteComponentProps> = (props) => {
+  const [showModal, setShowModal] = useState(false);
+  const [currentEmail, setCurrentEmail] = useState<string | undefined>(undefined);
   const [loading, setLoading] = useState(true);
   const [locationZones, setLocationZones] = useState<LocationZone[]>([]);
   const [paginationData, setPaginationData] = useState<PaginationData<User>>({
@@ -64,10 +67,17 @@ const UsersPage: React.FC<WithUserProps & RouteComponentProps> = (props) => {
     }
   }
 
-  const resetPassword = async (email: string) => {
+  const openPasswordModal = async (email: string) => {
+    setCurrentEmail(email);
+    setShowModal(true);
+  }
+
+  const resetPassword = async () => {
     try {
       setLoading(true);
-      await AuthService.resetPassword(email);
+      await AuthService.resetPassword(currentEmail!);
+      setCurrentEmail(undefined);
+      setShowModal(false);
       showMessage('Correcto', 'Se ha enviado la nueva contraseña al usuario', NoticeType.SUCCESS);
       setLoading(false);
       getUsers();
@@ -102,6 +112,8 @@ const UsersPage: React.FC<WithUserProps & RouteComponentProps> = (props) => {
     getUsers();
   }
 
+  const onCloseModal = () => setShowModal(false);
+
   useEffect(() => {
     getLocationZones();
     getUsers();
@@ -119,10 +131,15 @@ const UsersPage: React.FC<WithUserProps & RouteComponentProps> = (props) => {
             onZoneChange={assignZone}
             paginationData={paginationData}
             onPageChange={onPageChange}
-            onPasswordReset={resetPassword}
+            onPasswordReset={openPasswordModal}
             onDeleteUser={onDeleteUser}
-            onSizeChange={onSizePageChange}/>
+            onSizeChange={onSizePageChange} />
         </Card>
+        <ChangePasswordModal
+          loading={loading}
+          visible={showModal}
+          onCancel={onCloseModal}
+          onOk={resetPassword} />
       </Container>
     </MainLayout>
   )
